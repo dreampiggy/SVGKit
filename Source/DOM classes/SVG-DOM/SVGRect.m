@@ -1,4 +1,7 @@
 #import "SVGRect.h"
+#if SVGKIT_UIKIT
+#import <UIKit/UIKit.h>
+#endif
 
 BOOL SVGRectIsInitialized( SVGRect rect )
 {

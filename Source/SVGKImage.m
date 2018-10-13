@@ -477,6 +477,19 @@ static NSMutableDictionary* globalSVGKImageCache;
 {
 	return [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
 }
+#if SVGKIT_MAC
+- (NSBitmapImageRep *)bitmapImageRep
+{
+    NSImage *image = [SVGKExporterUIImage exportAsUIImage:self antiAliased:TRUE curveFlatnessFactor:1.0f interpolationQuality:kCGInterpolationDefault]; // Apple defaults
+    NSImageRep *imageRep = image.representations.firstObject;
+    if ([imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return (NSBitmapImageRep *)imageRep;
+    } else {
+        SVGKitLogWarn(@"[%@] export bitmapImageRep failed.", [self class]);
+        return nil;
+    }
+}
+#endif
 
 // the these draw the image 'right side up' in the usual coordinate system with 'point' being the top-left.
 

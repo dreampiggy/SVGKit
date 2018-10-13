@@ -34,3 +34,5 @@ void SVGGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat s
 CGContextRef SVGGraphicsGetCurrentContext(void);
 UIImage * SVGGraphicsGetImageFromCurrentImageContext(void);
 void SVGGraphicsEndImageContext(void);
+
+NSString * __nonnull SVGKGetDefaultImageStringContents(void);
