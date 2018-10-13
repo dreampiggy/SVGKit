@@ -29,5 +29,3 @@ CGFloat SVGPercentageFromString (const char *string);
 
 CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t close);
 CGColorRef CGColorWithSVGColor (SVGColor color);
-
-NSString * __nonnull SVGKGetDefaultImageStringContents(void);

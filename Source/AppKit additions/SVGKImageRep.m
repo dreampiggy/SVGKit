@@ -190,7 +190,9 @@
 
 - (instancetype)init
 {
-    return self = [self initWithSVGString:SVGKGetDefaultImageStringContents()];
+    NSAssert(NO, @"init not supported, use initWithData:");
+    
+    return nil;
 }
 
 - (void)setSize:(NSSize)aSize
@@ -278,11 +280,6 @@
 	
 	return YES;
 }
-
-//- (CGImageRef)CGImageForProposedRect:(NSRect *)proposedDestRect context:(NSGraphicsContext *)context hints:(NSDictionary *)hints
-//{
-//
-//}
 
 #pragma mark - Inherited protocols
 
