@@ -1000,7 +1000,7 @@
 		321EAA562171E73100640504 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/CoreGraphics.framework; sourceTree = DEVELOPER_DIR; };
 		321EAA582171E73800640504 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		321EAA5A2171E73E00640504 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk/System/Library/Frameworks/QuartzCore.framework; sourceTree = DEVELOPER_DIR; };
-		321EAA622171EC8700640504 /* SVGKitFramework_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKitFramework_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		321EAA622171EC8700640504 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		321EAB5B2171FB8100640504 /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
 		321EAB5D2171FB8100640504 /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
 		4FD821EE1AC69F6600E419D3 /* SVGSwitchElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGSwitchElement.h; sourceTree = "<group>"; };
@@ -1463,7 +1463,7 @@
 				825CDAB81BDA4BC0003C1C12 /* SVGKitFramework-iOSTests.xctest */,
 				825CDAD31BDA4D38003C1C12 /* SVGKit.framework */,
 				825CDADC1BDA4D38003C1C12 /* SVGKitFramework-tvOSTests.xctest */,
-				321EAA622171EC8700640504 /* SVGKitFramework_OSX.framework */,
+				321EAA622171EC8700640504 /* SVGKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2442,7 +2442,7 @@
 			);
 			name = "SVGKitFramework-OSX";
 			productName = SVGKit;
-			productReference = 321EAA622171EC8700640504 /* SVGKitFramework_OSX.framework */;
+			productReference = 321EAA622171EC8700640504 /* SVGKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		55452BF019EC68A200B75A30 /* SVGKit-iOS Tests */ = {
@@ -3190,14 +3190,14 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = "$(SRCROOT)/SVGKitFrameworks/SVGKitFramework-OSX/Info.plist";
+				INFOPLIST_FILE = "SVGKitFrameworks/SVGKitFramework-OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = SVGKit.SVGKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "SVGKit.SVGKitFramework-OSX";
+				PRODUCT_NAME = SVGKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -3250,14 +3250,14 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				HEADER_SEARCH_PATHS = /usr/include/libxml2;
-				INFOPLIST_FILE = "$(SRCROOT)/SVGKitFrameworks/SVGKitFramework-OSX/Info.plist";
+				INFOPLIST_FILE = "SVGKitFrameworks/SVGKitFramework-OSX/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = SVGKit.SVGKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = "SVGKit.SVGKitFramework-OSX";
+				PRODUCT_NAME = SVGKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
