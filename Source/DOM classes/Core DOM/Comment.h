@@ -11,7 +11,13 @@
 
 #import "CharacterData.h"
 
+#if SVGKIT_MAC
+// macOS's out-of-date Carbon API defined the `Comment` struct and cause naming conflict, so we need re-define it and use macro to avoid changing exist API
+#define Comment SVGKComment
+@interface SVGKComment : CharacterData
+#else
 @interface Comment : CharacterData
+#endif
 
 - (id)initWithValue:(NSString*) v;
 

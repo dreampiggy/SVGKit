@@ -29,3 +29,26 @@ CGSize CGSizeFromSVGRect( SVGRect rect )
 	
 	return result;
 }
+
+NSString * NSStringFromSVGRect( SVGRect rect ) {
+    CGRect cgRect = CGRectFromSVGRect(rect);
+#if SVGKIT_MAC
+    return NSStringFromRect(cgRect);
+#else
+    return NSStringFromCGRect(cgRect);
+#endif
+}
+
+#if SVGKIT_MAC
+NSString * NSStringFromCGRect( CGRect rect ) {
+    return NSStringFromRect(rect);
+}
+
+NSString * _Nonnull NSStringFromCGSize( CGSize size ) {
+    return NSStringFromSize(size);
+}
+
+NSString * NSStringFromCGPoint( CGPoint point ) {
+    return NSStringFromPoint(point);
+}
+#endif

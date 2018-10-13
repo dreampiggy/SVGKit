@@ -7,7 +7,6 @@
 //
 
 #import <QuartzCore/QuartzCore.h>
-#import <UIKit/UIKit.h>
 #import "SVGTransformable.h"
 
 static NSString * const kExt_CAGradientLayerRadial = @"radialGradient";

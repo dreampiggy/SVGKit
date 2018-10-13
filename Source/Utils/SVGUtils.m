@@ -6,6 +6,7 @@
 //
 
 #import "SVGUtils.h"
+#import <objc/runtime.h>
 
 #define MAX_ACCUM 64
 #define NUM_COLORS 147
@@ -455,4 +456,95 @@ CGColorRef CGColorWithSVGColor (SVGColor color) {
 #endif
 	
 	return outColor;
+}
+
+#if SVGKIT_MAC
+static void *kNSGraphicsContextScaleFactorKey;
+
+static CGContextRef SVGCGContextCreateBitmapContext(CGSize size, BOOL opaque, CGFloat scale) {
+    size_t width = ceil(size.width * scale);
+    size_t height = ceil(size.height * scale);
+    if (width < 1 || height < 1) return NULL;
+    
+    //pre-multiplied BGRA for non-opaque, BGRX for opaque, 8-bits per component, as Apple's doc
+    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+    CGImageAlphaInfo alphaInfo = kCGBitmapByteOrder32Host | (opaque ? kCGImageAlphaNoneSkipFirst : kCGImageAlphaPremultipliedFirst);
+    CGContextRef context = CGBitmapContextCreate(NULL, width, height, 8, 0, space, kCGBitmapByteOrderDefault | alphaInfo);
+    CGColorSpaceRelease(space);
+    if (!context) {
+        return NULL;
+    }
+    if (scale == 0) {
+        // Match `UIGraphicsBeginImageContextWithOptions`, reset to the scale factor of the device’s main screen if scale is 0.
+        scale = [NSScreen mainScreen].backingScaleFactor;
+    }
+    CGContextScaleCTM(context, scale, scale);
+    
+    return context;
+}
+#endif
+
+void SVGGraphicsBeginImageContextWithOptions(CGSize size, BOOL opaque, CGFloat scale) {
+#if SD_UIKIT || SD_WATCH
+    UIGraphicsBeginImageContextWithOptions(size, opaque, scale);
+#else
+    CGContextRef context = SVGCGContextCreateBitmapContext(size, opaque, scale);
+    if (!context) {
+        return;
+    }
+    NSGraphicsContext *graphicsContext = [NSGraphicsContext graphicsContextWithCGContext:context flipped:NO];
+    objc_setAssociatedObject(graphicsContext, &kNSGraphicsContextScaleFactorKey, @(scale), OBJC_ASSOCIATION_RETAIN);
+    CGContextRelease(context);
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext.currentContext = graphicsContext;
+#endif
+}
+
+CGContextRef SVGGraphicsGetCurrentContext(void) {
+#if SD_UIKIT || SD_WATCH
+    return UIGraphicsGetCurrentContext();
+#else
+    return NSGraphicsContext.currentContext.CGContext;
+#endif
+}
+
+void SVGGraphicsEndImageContext(void) {
+#if SD_UIKIT || SD_WATCH
+    UIGraphicsEndImageContext();
+#else
+    [NSGraphicsContext restoreGraphicsState];
+#endif
+}
+
+UIImage * SVGGraphicsGetImageFromCurrentImageContext(void) {
+#if SD_UIKIT || SD_WATCH
+    return UIGraphicsGetImageFromCurrentImageContext();
+#else
+    NSGraphicsContext *context = NSGraphicsContext.currentContext;
+    CGContextRef contextRef = context.CGContext;
+    if (!contextRef) {
+        return nil;
+    }
+    CGImageRef imageRef = CGBitmapContextCreateImage(contextRef);
+    if (!imageRef) {
+        return nil;
+    }
+    CGFloat scale = 0;
+    NSNumber *scaleFactor = objc_getAssociatedObject(context, &kNSGraphicsContextScaleFactorKey);
+    if ([scaleFactor isKindOfClass:[NSNumber class]]) {
+        scale = scaleFactor.doubleValue;
+    }
+    if (!scale) {
+        // reset to the scale factor of the device’s main screen if scale is 0.
+        scale = [NSScreen mainScreen].backingScaleFactor;
+    }
+    NSBitmapImageRep *imageRep = [[NSBitmapImageRep alloc] initWithCGImage:imageRef];
+    CGFloat pixelWidth = imageRep.pixelsWide;
+    CGFloat pixelHeight = imageRep.pixelsHigh;
+    NSSize size = NSMakeSize(pixelWidth / scale, pixelHeight / scale);
+    NSImage *image = [[NSImage alloc] initWithSize:size];
+    [image addRepresentation:imageRep];
+    CGImageRelease(imageRef);
+    return image;
+#endif
 }
