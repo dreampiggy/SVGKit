@@ -298,7 +298,11 @@
 	
 	//DEBUG: SVGKitLogVerbose(@"cols, rows: %i, %i ... scaleConvert: %@ ... tilesize: %@", cols, rows, NSStringFromCGSize(scaleConvertImageToView), NSStringFromCGSize(tileSize) );
 	/** To support tiling, and to allow internal shrinking, we use renderInContext */
-	CGContextRef context = SVGGraphicsGetCurrentContext();
+#if SVGKIT_UIKIT
+    CGContextRef context = UIGraphicsGetCurrentContext();
+#else
+    CGContextRef context = NSGraphicsContext.currentContext.CGContext;
+#endif
 	for( int k=0; k<rows; k++ )
 		for( int i=0; i<cols; i++ )
 		{
