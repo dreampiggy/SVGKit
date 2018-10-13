@@ -23,7 +23,6 @@
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 @synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 +(BOOL)svgImageHasNoGradients:(SVGKImage*)image
 {
     return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
@@ -32,6 +31,10 @@
 + (BOOL)svgImageHasNoText:(SVGKImage*)image
 {
     return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
+}
+
++ (BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*)element {
+    return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
 }
 
 + (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
@@ -54,7 +57,6 @@
     
     return YES;
 }
-#endif
 
 - (id)init
 {
