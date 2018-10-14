@@ -4,6 +4,10 @@
 
 #import "SVGKSourceString.h"
 
+#define SetupNSViewLayerClass() \
+self.layer = [[SVGKLayer alloc] init]; \
+self.wantsLayer = YES;
+
 @interface SVGKLayeredImageView()
 @property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
@@ -75,6 +79,9 @@
 
 - (void)populateFromImage:(SVGKImage*) im
 {
+#if SVGKIT_MAC
+    SetupNSViewLayerClass();
+#endif
 	if( im == nil )
 	{
 #ifndef SVGK_DONT_USE_EMPTY_IMAGE_PLACEHOLDER
