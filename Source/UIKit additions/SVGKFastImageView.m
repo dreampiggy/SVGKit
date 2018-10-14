@@ -26,39 +26,31 @@ self.wantsLayer = YES;
 @synthesize disableAutoRedrawAtHighestResolution = _disableAutoRedrawAtHighestResolution;
 @synthesize timeIntervalForLastReRenderOfSVGFromMemory = _timeIntervalForLastReRenderOfSVGFromMemory;
 
-+(BOOL)svgImageHasNoGradients:(SVGKImage*)image
++(BOOL) svgImageHasNoGradients:(SVGKImage*) image
 {
-    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGGradientElement class]];
+    return [self svgElementAndDescendentsHaveNoGradients:image.DOMTree];
 }
 
-+ (BOOL)svgImageHasNoText:(SVGKImage*)image
++(BOOL) svgElementAndDescendentsHaveNoGradients:(SVGElement*) element
 {
-    return [self svgElementAndDescendents:image.DOMTree haveNoClass:[SVGTextElement class]];
-}
-
-+ (BOOL)svgElementAndDescendentsHaveNoGradients:(SVGElement*)element {
-    return [self svgElementAndDescendents:element haveNoClass:[SVGGradientElement class]];
-}
-
-+ (BOOL)svgElementAndDescendents:(SVGElement*)element haveNoClass:(Class) theClass
-{
-    if( [element isKindOfClass:theClass])
-        return NO;
+    if( [element isKindOfClass:[SVGGradientElement class]])
+        return FALSE;
     else
     {
         for( Node* n in element.childNodes )
         {
             if( [n isKindOfClass:[SVGElement class]])
             {
-                if( [self svgElementAndDescendents:(SVGElement*)n haveNoClass:theClass])
+                if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
                     ;
                 else
-                    return NO;
+                    return FALSE;
             }
+            
         }
     }
     
-    return YES;
+    return TRUE;
 }
 
 - (id)init
@@ -319,14 +311,7 @@ self.wantsLayer = YES;
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
-            CALayer *layerTree = self.image.CALayerTree;
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-            [self preprocessRenderingLayerTree:layerTree];
-#endif
-			[layerTree renderInContext:context];
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-            [self postProcessRenderingLayerTree:layerTree];
-#endif
+            [self.image renderInContext:context];
 			
 			CGContextRestoreGState(context);
 		}
@@ -341,56 +326,5 @@ self.wantsLayer = YES;
 	self.endRenderTime = [NSDate date];
 	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
-
-#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
-- (void)preprocessRenderingLayerTree:(CALayer *)layerTree {
-#if SVGKIT_MAC
-    // macOS (at least macOS 10.13 still exist) contains bug in `-[CALayer renderInContext:]` method for `CATextLayer` or `CALayer` with CGImage contents
-    // which will flip the text/image content. However, iOS/tvOS works fine. We have to hack to fix it. :)
-    // note when using sublayer drawing (`USE_SUBLAYERS_INSTEAD_OF_BLIT` = 1) this issue disappear
-    BOOL fixFlip = NO;
-    if ([layerTree isKindOfClass:[CATextLayer class]]) {
-        fixFlip = YES;
-    } else if (layerTree.contents != nil) {
-        fixFlip = YES;
-    }
-    if (fixFlip) {
-        // Hack to apply flip for content
-        NSAffineTransform *flip = [NSAffineTransform transform];
-        [flip scaleXBy:1.0 yBy:-1.0];
-        [layerTree setValue:flip forKey:@"contentsTransform"];
-    }
-    for (CALayer *layer in layerTree.sublayers) {
-        [self preprocessRenderingLayerTree:layer];
-    }
-#endif
-}
-
-- (void)postProcessRenderingLayerTree:(CALayer *)layerTree {
-#if SVGKIT_MAC
-    BOOL fixFlip = NO;
-    if ([layerTree isKindOfClass:[CATextLayer class]]) {
-        fixFlip = YES;
-    } else if (layerTree.contents != nil) {
-        fixFlip = YES;
-    }
-    if (fixFlip) {
-        // Hack to recover flip for content
-        NSAffineTransform *flip = [NSAffineTransform transform];
-        [flip scaleXBy:1.0 yBy:1.0];
-        [layerTree setValue:flip forKey:@"contentsTransform"];
-    }
-    for (CALayer *layer in layerTree.sublayers) {
-        [self postProcessRenderingLayerTree:layer];
-    }
-#endif
-}
-#endif
-
-#if SVGKIT_MAC
-- (BOOL)isFlipped {
-    return YES;
-}
-#endif
 
 @end

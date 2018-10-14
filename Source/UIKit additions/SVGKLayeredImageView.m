@@ -145,10 +145,4 @@ self.wantsLayer = YES;
 	return[((SVGKLayer*)self.layer).endRenderTime timeIntervalSinceDate:((SVGKLayer*)self.layer).startRenderTime];
 }
 
-#if SVGKIT_MAC
-- (BOOL)isFlipped {
-    return YES;
-}
-#endif
-
 @end

@@ -153,18 +153,12 @@
         
 #if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
 		BOOL hasGrad = ![SVGKFastImageView svgImageHasNoGradients:self.image];
-		BOOL hasText = ![SVGKFastImageView svgImageHasNoText:self.image];
 		
-		if (hasGrad || hasText) {
+		if (hasGrad) {
 			NSString *errstuff;
 			
 			if (hasGrad) {
 				errstuff = @"gradients";
-				if (hasText) {
-					errstuff = [errstuff stringByAppendingString:@" and text"];
-				}
-			} else if (hasText) {
-				errstuff = @"text";
 			}
 			
 			if (errstuff == nil) {
