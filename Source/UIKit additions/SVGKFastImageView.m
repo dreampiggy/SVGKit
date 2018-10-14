@@ -6,6 +6,9 @@
 #import "SVGGradientElement.h" 
 #endif
 
+#define SetupLayerBackedView() \
+self.wantsLayer = YES;
+
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
 @property (nonatomic, strong) NSDate* startRenderTime, * endRenderTime; /**< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
@@ -102,6 +105,9 @@
 
 - (void)populateFromImage:(SVGKImage*) im
 {
+#if SVGKIT_MAC && USE_SUBLAYERS_INSTEAD_OF_BLIT
+    SetupLayerBackedView();
+#endif
 	if( im == nil )
 	{
 		SVGKitLogWarn(@"[%@] WARNING: you have initialized an SVGKImageView with a blank image (nil). Possibly because you're using Storyboards or NIBs which Apple won't allow us to decorate. Make sure you assign an SVGKImage to the .image property!", [self class]);
@@ -313,7 +319,14 @@
 			CGContextTranslateCTM(context, i * tileSize.width, k * tileSize.height );
 			CGContextScaleCTM( context, scaleConvertImageToView.width, scaleConvertImageToView.height );
 			
-			[self.image.CALayerTree renderInContext:context];
+            CALayer *layerTree = self.image.CALayerTree;
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
+            [self preprocessRenderingLayerTree:layerTree];
+#endif
+			[layerTree renderInContext:context];
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
+            [self postProcessRenderingLayerTree:layerTree];
+#endif
 			
 			CGContextRestoreGState(context);
 		}
@@ -328,6 +341,51 @@
 	self.endRenderTime = [NSDate date];
 	self.timeIntervalForLastReRenderOfSVGFromMemory = [self.endRenderTime timeIntervalSinceDate:self.startRenderTime];
 }
+
+#if TEMPORARY_WARNING_FOR_APPLES_BROKEN_RENDERINCONTEXT_METHOD
+- (void)preprocessRenderingLayerTree:(CALayer *)layerTree {
+#if SVGKIT_MAC
+    // macOS (at least macOS 10.13 still exist) contains bug in `-[CALayer renderInContext:]` method for `CATextLayer` or `CALayer` with CGImage contents
+    // which will flip the text/image content. However, iOS/tvOS works fine. We have to hack to fix it. :)
+    // note when using sublayer drawing (`USE_SUBLAYERS_INSTEAD_OF_BLIT` = 1) this issue disappear
+    BOOL fixFlip = NO;
+    if ([layerTree isKindOfClass:[CATextLayer class]]) {
+        fixFlip = YES;
+    } else if (layerTree.contents != nil) {
+        fixFlip = YES;
+    }
+    if (fixFlip) {
+        // Hack to apply flip for content
+        NSAffineTransform *flip = [NSAffineTransform transform];
+        [flip scaleXBy:1.0 yBy:-1.0];
+        [layerTree setValue:flip forKey:@"contentsTransform"];
+    }
+    for (CALayer *layer in layerTree.sublayers) {
+        [self preprocessRenderingLayerTree:layer];
+    }
+#endif
+}
+
+- (void)postProcessRenderingLayerTree:(CALayer *)layerTree {
+#if SVGKIT_MAC
+    BOOL fixFlip = NO;
+    if ([layerTree isKindOfClass:[CATextLayer class]]) {
+        fixFlip = YES;
+    } else if (layerTree.contents != nil) {
+        fixFlip = YES;
+    }
+    if (fixFlip) {
+        // Hack to recover flip for content
+        NSAffineTransform *flip = [NSAffineTransform transform];
+        [flip scaleXBy:1.0 yBy:1.0];
+        [layerTree setValue:flip forKey:@"contentsTransform"];
+    }
+    for (CALayer *layer in layerTree.sublayers) {
+        [self postProcessRenderingLayerTree:layer];
+    }
+#endif
+}
+#endif
 
 #if SVGKIT_MAC
 - (BOOL)isFlipped {

@@ -347,7 +347,6 @@
 		32EE37792173431300A23278 /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		55018B4B1B24E95700936DF7 /* Licenses.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Licenses.plist; path = "Demo-Samples/Licenses.plist"; sourceTree = SOURCE_ROOT; };
 		556427B71A4B9E5D006A7269 /* Lumberjack.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Lumberjack.xcodeproj; path = Source/Vendor/CocoaLumberjack/Lumberjack.xcodeproj; sourceTree = "<group>"; };
-		55C362C217821F6400BA24FA /* Demo-OSX-inline-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Demo-OSX-inline-Info.plist"; sourceTree = "<group>"; };
 		55C362CA1782208700BA24FA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		55D8EE2417628A71009C25F1 /* Demo-OSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-OSX.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		55D8EE2717628A71009C25F1 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -570,7 +569,6 @@
 			children = (
 				55018B4B1B24E95700936DF7 /* Licenses.plist */,
 				55D8EE2F17628A71009C25F1 /* Demo-OSX-Info.plist */,
-				55C362C217821F6400BA24FA /* Demo-OSX-inline-Info.plist */,
 				55D8EE3017628A71009C25F1 /* InfoPlist.strings */,
 				55D8EE3317628A71009C25F1 /* main.m */,
 				55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */,
