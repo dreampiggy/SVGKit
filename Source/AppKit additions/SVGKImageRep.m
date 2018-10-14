@@ -30,7 +30,11 @@
 - (NSData *)TIFFRepresentationWithSize:(NSSize)theSize
 {
 	self.image.size = theSize;
-	return [self.image.bitmapImageRep TIFFRepresentation];
+    NSImageRep *imageRep = self.image.NSImage.representations.firstObject;
+    if (![imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return nil;
+    }
+	return [(NSBitmapImageRep *)imageRep TIFFRepresentation];
 }
 
 - (NSData *)TIFFRepresentation
@@ -46,7 +50,11 @@
 - (NSData *)TIFFRepresentationUsingCompression:(NSTIFFCompression)comp factor:(float)factor size:(NSSize)asize
 {
 	self.image.size = asize;
-	return [self.image.bitmapImageRep TIFFRepresentationUsingCompression:comp factor:factor];
+    NSImageRep *imageRep = self.image.NSImage.representations.firstObject;
+    if (![imageRep isKindOfClass:[NSBitmapImageRep class]]) {
+        return nil;
+    }
+    return [(NSBitmapImageRep *)imageRep TIFFRepresentation];
 }
 
 + (NSArray<NSString *> *)imageUnfilteredTypes {

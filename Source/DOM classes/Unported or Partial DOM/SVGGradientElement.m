@@ -3,8 +3,12 @@
 #import "SVGGradientElement.h"
 #import "SVGGradientStop.h"
 #import "SVGElement_ForParser.h"
-
 #import "SVGGElement.h"
+#if SVGKIT_MAC
+#import <AppKit/AppKit.h>
+#else
+#import <UIKit/UIKit.h>
+#endif
 @interface SVGGradientElement ()
 
 @property (nonatomic) BOOL hasSynthesizedProperties;

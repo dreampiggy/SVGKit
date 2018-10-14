@@ -579,7 +579,7 @@
 	}
 	else
 	{
-#if TARGET_OS_IPHONE
+#if SVGKIT_UIKIT
 		fillColor = [UIColor blackColor].CGColor;
 #else
 		fillColor = CGColorGetConstantColor(kCGColorBlack);

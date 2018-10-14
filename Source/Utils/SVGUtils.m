@@ -445,7 +445,7 @@ CGMutablePathRef createPathFromPointsInString (const char *string, boolean_t clo
 CGColorRef CGColorWithSVGColor (SVGColor color) {
 	CGColorRef outColor = NULL;
 	
-#if TARGET_OS_IPHONE
+#if SVGKIT_UIKIT
 	outColor = [UIColor colorWithRed:RGB_N(color.r)
 							   green:RGB_N(color.g)
 								blue:RGB_N(color.b)
