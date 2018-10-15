@@ -83,7 +83,6 @@
 		55D8EE2817628A71009C25F1 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8EE2717628A71009C25F1 /* Cocoa.framework */; };
 		55D8EE3217628A71009C25F1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3017628A71009C25F1 /* InfoPlist.strings */; };
 		55D8EE3417628A71009C25F1 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3317628A71009C25F1 /* main.m */; };
-		55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3617628A71009C25F1 /* Credits.rtf */; };
 		55D8EE3B17628A71009C25F1 /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */; };
 		55D8EE3E17628A71009C25F1 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55D8EE3C17628A71009C25F1 /* MainMenu.xib */; };
 		55D8EE4F17628FBC009C25F1 /* SKSVGObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 55D8EE4E17628FBC009C25F1 /* SKSVGObject.m */; };
@@ -357,7 +356,6 @@
 		55D8EE3117628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55D8EE3317628A71009C25F1 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-OSX-Prefix.pch"; sourceTree = "<group>"; };
-		55D8EE3717628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		55D8EE3917628A71009C25F1 /* SKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = SKAppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		55D8EE3A17628A71009C25F1 /* SKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAppDelegate.m; sourceTree = "<group>"; };
 		55D8EE3D17628A71009C25F1 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
@@ -572,7 +570,6 @@
 				55D8EE3017628A71009C25F1 /* InfoPlist.strings */,
 				55D8EE3317628A71009C25F1 /* main.m */,
 				55D8EE3517628A71009C25F1 /* Demo-OSX-Prefix.pch */,
-				55D8EE3617628A71009C25F1 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -848,7 +845,6 @@
 				32C4FD492173976C00FBEDBF /* Note.svg in Resources */,
 				32C4FD452173976C00FBEDBF /* test-stroke-dash-array.svg in Resources */,
 				32C4FD4C2173976C00FBEDBF /* sakamura-default-fill-opacity-test.svg in Resources */,
-				55D8EE3817628A71009C25F1 /* Credits.rtf in Resources */,
 				32C4FD4E2173976C00FBEDBF /* Europe_states_reduced.svg in Resources */,
 				32C4FD582173976C00FBEDBF /* CSS.svg in Resources */,
 				32C4FD702173976C00FBEDBF /* Location_European_nation_states.svg in Resources */,
@@ -911,14 +907,6 @@
 				55D8EE3117628A71009C25F1 /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		55D8EE3617628A71009C25F1 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				55D8EE3717628A71009C25F1 /* en */,
-			);
-			name = Credits.rtf;
 			sourceTree = "<group>";
 		};
 		55D8EE3C17628A71009C25F1 /* MainMenu.xib */ = {

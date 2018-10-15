@@ -4,10 +4,6 @@
 
 #import "SVGKSourceString.h"
 
-#define SetupLayerHostingView() \
-self.layer = [[SVGKLayer alloc] init]; \
-self.wantsLayer = YES;
-
 @interface SVGKLayeredImageView()
 @property(nonatomic,strong) CAShapeLayer* internalBorderLayer;
 @end
@@ -80,7 +76,9 @@ self.wantsLayer = YES;
 - (void)populateFromImage:(SVGKImage*) im
 {
 #if SVGKIT_MAC
-    SetupLayerHostingView();
+    // setup layer-backed view
+    self.layer = [[SVGKLayer alloc] init];
+    self.wantsLayer = YES;
 #endif
 	if( im == nil )
 	{

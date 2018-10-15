@@ -6,9 +6,6 @@
 #import "SVGGradientElement.h" 
 #endif
 
-#define SetupLayerBackedView() \
-self.wantsLayer = YES;
-
 @interface SVGKFastImageView ()
 @property(nonatomic,readwrite) NSTimeInterval timeIntervalForLastReRenderOfSVGFromMemory;
 @property (nonatomic, strong) NSDate* startRenderTime, * endRenderTime; /**< for debugging, lets you know how long it took to add/generate the CALayer (may have been cached! Only SVGKImage knows true times) */
@@ -98,7 +95,8 @@ self.wantsLayer = YES;
 - (void)populateFromImage:(SVGKImage*) im
 {
 #if SVGKIT_MAC && USE_SUBLAYERS_INSTEAD_OF_BLIT
-    SetupLayerBackedView();
+    // setup layer-hosting view
+    self.wantsLayer = YES;
 #endif
 	if( im == nil )
 	{

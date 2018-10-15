@@ -31,9 +31,9 @@
 - (void)renderInContext:(CGContextRef)ctx
 {
     CALayer *layerTree = self.CALayerTree;
-    [self preprocessRenderingLayerTree:layerTree];
+    [self temporaryWorkaroundPreprocessRenderingLayerTree:layerTree];
 	[layerTree renderInContext:ctx];
-    [self postProcessRenderingLayerTree:layerTree];
+    [self temporaryWorkaroundPostProcessRenderingLayerTree:layerTree];
 }
 
 /**
@@ -98,11 +98,15 @@
 	SVGKitLogVerbose(@"[%@] renderToContext: time taken to render CALayers to CGContext (perf improvements:%@): %2.3f seconds)", [self class], perfImprovements, -1.0f * [startTime timeIntervalSinceNow] );
 }
 
-- (void)preprocessRenderingLayerTree:(CALayer *)layerTree {
+/**
+ macOS (at least macOS 10.13 still exist) contains bug in `-[CALayer renderInContext:]` method for `CATextLayer` or `CALayer` with CGImage contents
+ which will use flipped coordinate system to draw text/image content. However, iOS/tvOS works fine. We have to hack to fix it. :)
+ note when using sublayer drawing (`USE_SUBLAYERS_INSTEAD_OF_BLIT` = 1) this issue disappear
+
+ @param layerTree layerTree
+ */
+- (void)temporaryWorkaroundPreprocessRenderingLayerTree:(CALayer *)layerTree {
 #if SVGKIT_MAC
-    // macOS (at least macOS 10.13 still exist) contains bug in `-[CALayer renderInContext:]` method for `CATextLayer` or `CALayer` with CGImage contents
-    // which will use flipped coordinate system to draw text/image content. However, iOS/tvOS works fine. We have to hack to fix it. :)
-    // note when using sublayer drawing (`USE_SUBLAYERS_INSTEAD_OF_BLIT` = 1) this issue disappear
     BOOL fixFlip = NO;
     if ([layerTree isKindOfClass:[CATextLayer class]]) {
         fixFlip = YES;
@@ -117,12 +121,12 @@
         [layerTree setValue:flip forKey:@"contentsTransform"];
     }
     for (CALayer *layer in layerTree.sublayers) {
-        [self preprocessRenderingLayerTree:layer];
+        [self temporaryWorkaroundPreprocessRenderingLayerTree:layer];
     }
 #endif
 }
 
-- (void)postProcessRenderingLayerTree:(CALayer *)layerTree {
+- (void)temporaryWorkaroundPostProcessRenderingLayerTree:(CALayer *)layerTree {
 #if SVGKIT_MAC
     BOOL fixFlip = NO;
     if ([layerTree isKindOfClass:[CATextLayer class]]) {
@@ -136,7 +140,7 @@
         [layerTree setValue:flip forKey:@"contentsTransform"];
     }
     for (CALayer *layer in layerTree.sublayers) {
-        [self postProcessRenderingLayerTree:layer];
+        [self temporaryWorkaroundPostProcessRenderingLayerTree:layer];
     }
 #endif
 }
