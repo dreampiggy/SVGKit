@@ -117,7 +117,7 @@
 
 - (instancetype)initWithContentsOfURL:(NSURL *)theURL
 {
-	return [self initWithSVGImage:[[SVGKImage alloc] initWithContentsOfURL:theURL] copy:NO];
+	return [self initWithSVGImage:[SVGKImage imageWithContentsOfURL:theURL] copy:NO];
 }
 
 - (instancetype)initWithContentsOfFile:(NSString *)thePath
