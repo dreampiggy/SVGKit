@@ -246,6 +246,8 @@
 		321EAB692172029800640504 /* SVGKFastImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863931688C2780059C9C4 /* SVGKFastImageView.m */; };
 		321EAB6A2172029800640504 /* SVGKImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863951688C2780059C9C4 /* SVGKImageView.m */; };
 		321EAB6B2172029800640504 /* SVGKLayeredImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 66E863971688C2780059C9C4 /* SVGKLayeredImageView.m */; };
+		32A1F09F21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */; };
+		32A1F0A121746F4700ABFCE1 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 321EAA622171EC8700640504 /* SVGKit.framework */; };
 		32EE37972173441400A23278 /* SVGKDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 32EE37962173441400A23278 /* SVGKDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32EE37982173441400A23278 /* SVGKDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 32EE37962173441400A23278 /* SVGKDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		32EE37992173441400A23278 /* SVGKDefine.h in Headers */ = {isa = PBXBuildFile; fileRef = 32EE37962173441400A23278 /* SVGKDefine.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -958,6 +960,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		32A1F0A221746F4700ABFCE1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6639618516145D0400E58CCA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 321EAA612171EC8700640504;
+			remoteInfo = "SVGKitFramework-OSX";
+		};
 		55452BF819EC68A200B75A30 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 6639618516145D0400E58CCA /* Project object */;
@@ -1007,6 +1016,9 @@
 		321EAA622171EC8700640504 /* SVGKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SVGKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		321EAB5B2171FB8100640504 /* SVGKImageRep.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKImageRep.m; sourceTree = "<group>"; };
 		321EAB5D2171FB8100640504 /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
+		32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKitFramework-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGKitFramework_OSXTests.m; sourceTree = "<group>"; };
+		32A1F0A021746F4700ABFCE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		32EE37962173441400A23278 /* SVGKDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGKDefine.h; sourceTree = "<group>"; };
 		32F206D9217324BB00427F24 /* SVGKExporterNSImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKExporterNSImage.h; sourceTree = "<group>"; };
 		32F206DA217324BB00427F24 /* SVGKExporterNSImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SVGKExporterNSImage.m; sourceTree = "<group>"; };
@@ -1285,6 +1297,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		32A1F09921746F4700ABFCE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32A1F0A121746F4700ABFCE1 /* SVGKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55452BEE19EC68A200B75A30 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -1373,6 +1393,15 @@
 				321EAB5B2171FB8100640504 /* SVGKImageRep.m */,
 			);
 			path = "AppKit additions";
+			sourceTree = "<group>";
+		};
+		32A1F09D21746F4700ABFCE1 /* SVGKitFramework-OSXTests */ = {
+			isa = PBXGroup;
+			children = (
+				32A1F09E21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m */,
+				32A1F0A021746F4700ABFCE1 /* Info.plist */,
+			);
+			path = "SVGKitFramework-OSXTests";
 			sourceTree = "<group>";
 		};
 		660D4FEB1C42927A004187D0 /* 3rd party frameworks */ = {
@@ -1471,6 +1500,7 @@
 				825CDAD31BDA4D38003C1C12 /* SVGKit.framework */,
 				825CDADC1BDA4D38003C1C12 /* SVGKitFramework-tvOSTests.xctest */,
 				321EAA622171EC8700640504 /* SVGKit.framework */,
+				32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1562,6 +1592,7 @@
 				66DBE5021C42A0D200A0F0B7 /* SVGKitFramework-tvOS */,
 				66DBE5091C42A0D800A0F0B7 /* SVGKitFramework-tvOSTests */,
 				321EAA392171E2C800640504 /* SVGKitFramework-OSX */,
+				32A1F09D21746F4700ABFCE1 /* SVGKitFramework-OSXTests */,
 			);
 			path = SVGKitFrameworks;
 			sourceTree = "<group>";
@@ -2459,6 +2490,24 @@
 			productReference = 321EAA622171EC8700640504 /* SVGKit.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		32A1F09B21746F4700ABFCE1 /* SVGKitFramework-OSXTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 32A1F0A621746F4700ABFCE1 /* Build configuration list for PBXNativeTarget "SVGKitFramework-OSXTests" */;
+			buildPhases = (
+				32A1F09821746F4700ABFCE1 /* Sources */,
+				32A1F09921746F4700ABFCE1 /* Frameworks */,
+				32A1F09A21746F4700ABFCE1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				32A1F0A321746F4700ABFCE1 /* PBXTargetDependency */,
+			);
+			name = "SVGKitFramework-OSXTests";
+			productName = "SVGKitFramework-OSXTests";
+			productReference = 32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		55452BF019EC68A200B75A30 /* SVGKit-iOS Tests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55452BFC19EC68A200B75A30 /* Build configuration list for PBXNativeTarget "SVGKit-iOS Tests" */;
@@ -2582,6 +2631,10 @@
 						CreatedOnToolsVersion = 10.0;
 						ProvisioningStyle = Automatic;
 					};
+					32A1F09B21746F4700ABFCE1 = {
+						CreatedOnToolsVersion = 10.0;
+						ProvisioningStyle = Automatic;
+					};
 					55452BF019EC68A200B75A30 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -2619,12 +2672,20 @@
 				825CDAD21BDA4D38003C1C12 /* SVGKitFramework-tvOS */,
 				825CDADB1BDA4D38003C1C12 /* SVGKitFramework-tvOSTests */,
 				321EAA612171EC8700640504 /* SVGKitFramework-OSX */,
+				32A1F09B21746F4700ABFCE1 /* SVGKitFramework-OSXTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		321EAA602171EC8700640504 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32A1F09A21746F4700ABFCE1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -2791,6 +2852,14 @@
 				321EAB332171ED9600640504 /* CALayerWithClipRender.m in Sources */,
 				321EAAD02171ED6F00640504 /* SVGTransform.m in Sources */,
 				321EAB282171ED9100640504 /* SVGKParser.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		32A1F09821746F4700ABFCE1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				32A1F09F21746F4700ABFCE1 /* SVGKitFramework_OSXTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3143,6 +3212,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		32A1F0A321746F4700ABFCE1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 321EAA612171EC8700640504 /* SVGKitFramework-OSX */;
+			targetProxy = 32A1F0A221746F4700ABFCE1 /* PBXContainerItemProxy */;
+		};
 		55452BF919EC68A200B75A30 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6639618D16145D0400E58CCA /* SVGKit-iOS */;
@@ -3276,6 +3350,90 @@
 				SKIP_INSTALL = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		32A1F0A421746F4700ABFCE1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SVGKitFramework-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "SVGKit.SVGKitFramework-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		32A1F0A521746F4700ABFCE1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "SVGKitFramework-OSXTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "SVGKit.SVGKitFramework-OSXTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -3762,6 +3920,15 @@
 			buildConfigurations = (
 				321EAA682171EC8700640504 /* Debug */,
 				321EAA692171EC8700640504 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		32A1F0A621746F4700ABFCE1 /* Build configuration list for PBXNativeTarget "SVGKitFramework-OSXTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				32A1F0A421746F4700ABFCE1 /* Debug */,
+				32A1F0A521746F4700ABFCE1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
