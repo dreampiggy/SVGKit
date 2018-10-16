@@ -8,15 +8,11 @@
 
 #import "SVGGradientElement.h"
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface SVGLinearGradientElement : SVGGradientElement
 
-@property (nonatomic, readonly) CGFloat x1;
-@property (nonatomic, readonly) CGFloat y1;
-@property (nonatomic, readonly) CGFloat x2;
-@property (nonatomic, readonly) CGFloat y2;
+@property (nonatomic, readonly) SVGLength *x1;
+@property (nonatomic, readonly) SVGLength *y1;
+@property (nonatomic, readonly) SVGLength *x2;
+@property (nonatomic, readonly) SVGLength *y2;
 
 @end
-
-NS_ASSUME_NONNULL_END

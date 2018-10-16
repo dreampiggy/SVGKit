@@ -9,31 +9,26 @@
 #import "SVGRadialGradientElement.h"
 #import "SVGElement_ForParser.h"
 #import "SVGUtils.h"
-#import "CALayer+Private.h"
+#import "SVGGradientLayer.h"
 
 @interface SVGRadialGradientElement ()
 
 @property (nonatomic) BOOL hasSynthesizedProperties;
+@property (nonatomic) SVGLength *cx;
+@property (nonatomic) SVGLength *cy;
+@property (nonatomic) SVGLength *r;
+@property (nonatomic) SVGLength *fx;
+@property (nonatomic) SVGLength *fy;
+@property (nonatomic) SVGLength *fr;
 
 @end
 
 @implementation SVGRadialGradientElement
 
 - (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)absoluteTransform {
-    CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-    BOOL inUserSpace = NO;
-    
-    CGAffineTransform selfTransform = self.transform;
-    CGRect rectForRelativeUnits;
-    NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
-    if( ![gradientUnits length]
-       || [gradientUnits isEqualToString:@"objectBoundingBox"])
-        rectForRelativeUnits = objectRect;
-    else
-    {
-        inUserSpace = YES;
-        rectForRelativeUnits = CGRectFromSVGRect( viewportRect );
-    }
+    SVGGradientLayer *gradientLayer = [[SVGGradientLayer alloc] init];
+    BOOL inUserSpace = self.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
+    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
     
     gradientLayer.frame = objectRect;
     
@@ -46,12 +41,22 @@
     SVGLength* svgCX = [SVGLength svgLengthFromNSString:cxAttr.length > 0 ? cxAttr : @"50%"];
     SVGLength* svgCY = [SVGLength svgLengthFromNSString:cyAttr.length > 0 ? cyAttr : @"50%"];
     SVGLength* svgR = [SVGLength svgLengthFromNSString:rAttr.length > 0 ? rAttr : @"50%"];
-    SVGLength* svgFX = [SVGLength svgLengthFromNSString:fxAttr.length > 0 ? fxAttr : cxAttr];
-    SVGLength* svgFY = [SVGLength svgLengthFromNSString:fyAttr.length > 0 ? fyAttr : cyAttr];
-    SVGLength* svgFR = [SVGLength svgLengthFromNSString:frAttr.length > 0 ? frAttr : rAttr];
+    // focal value
+    SVGLength* svgFX = fxAttr.length > 0 ? [SVGLength svgLengthFromNSString:fxAttr] : svgCX;
+    SVGLength* svgFY = fyAttr.length > 0 ? [SVGLength svgLengthFromNSString:fyAttr] : svgCY;
+    SVGLength* svgFR = [SVGLength svgLengthFromNSString:frAttr.length > 0 ? frAttr : @"0%"];
+    if (fxAttr.length > 0 || fyAttr.length > 0 || frAttr.length > 0) {
+        SVGKitLogVerbose(@"The radialGradient element #%@ contains focal value: (fx:%@, fy: %@, fr:%@). The focul value is only supported on `SVGFastimageView` and it will be ignored when rendering in SVGLayredView.", [self getAttribute:@"id"], fxAttr, fyAttr, frAttr);
+    }
+    self.cx = svgCX;
+    self.cy = svgCY;
+    self.r = svgR;
+    self.fx = svgFX;
+    self.fy = svgFY;
+    self.fr = svgFR;
     
-    CGFloat radius = svgR.value;
-    CGPoint startPoint = CGPointZero;
+    CGFloat radius;
+    CGFloat focalRadius;
     CGPoint gradientStartPoint = CGPointZero;
     CGPoint gradientEndPoint = CGPointZero;
     
@@ -60,28 +65,33 @@
         // compute size based on percentages
         CGFloat x = [svgCX pixelsValueWithDimension:1.0]*CGRectGetWidth(objectRect);
         CGFloat y = [svgCY pixelsValueWithDimension:1.0]*CGRectGetHeight(objectRect);
-        startPoint = CGPointMake(x, y);
+        CGPoint startPoint = CGPointMake(x, y);
         CGFloat val = MIN(CGRectGetWidth(objectRect), CGRectGetHeight(objectRect));
         radius = [svgR pixelsValueWithDimension:1.0]*val;
         
         CGFloat ex = [svgFX pixelsValueWithDimension:1.0]*CGRectGetWidth(objectRect);
         CGFloat ey = [svgFY pixelsValueWithDimension:1.0]*CGRectGetHeight(objectRect);
+        CGFloat er = [svgFR pixelsValueWithDimension:1.0]*val;
         
-        gradientEndPoint = CGPointMake(ex, ey);
         gradientStartPoint = startPoint;
+        gradientEndPoint = CGPointMake(ex, ey);
+        focalRadius = er;
     }
     else
     {
+        radius = [svgR pixelsValueWithDimension:1.0];
         CGFloat rad = radius*2.f;
-        startPoint = CGPointMake(svgCX.value, svgCY.value);
+        CGPoint startPoint = CGPointMake([svgCX pixelsValueWithDimension:1.0], [svgCY pixelsValueWithDimension:1.0]);
         
         // work out the new radius
         CGRect rect = CGRectMake(startPoint.x, startPoint.y, rad, rad);
-        rect = CGRectApplyAffineTransform(rect, selfTransform);
+        rect = CGRectApplyAffineTransform(rect, self.transform);
         rect = CGRectApplyAffineTransform(rect, absoluteTransform);
         radius = CGRectGetHeight(rect)/2.f;
+        
         gradientStartPoint = startPoint;
-        gradientEndPoint = CGPointMake(svgFX.value, svgFY.value);
+        gradientEndPoint = CGPointMake([svgFX pixelsValueWithDimension:1.0], [svgFY pixelsValueWithDimension:1.0]);
+        focalRadius = [svgFR pixelsValueWithDimension:1.0];
     }
     
     if (inUserSpace)
@@ -90,28 +100,25 @@
         gradientStartPoint = CGPointApplyAffineTransform(gradientStartPoint, absoluteTransform);
         gradientEndPoint = CGPointApplyAffineTransform(gradientEndPoint, absoluteTransform);
     }
-    else
-    {
-        // transform if width or height is not equal
-        if(CGRectGetWidth(objectRect) != CGRectGetHeight(objectRect)) {
-            CGAffineTransform tr = CGAffineTransformMakeTranslation(gradientStartPoint.x,
-                                                                    gradientStartPoint.y);
-            if(CGRectGetWidth(objectRect) > CGRectGetHeight(objectRect)) {
-                tr = CGAffineTransformScale(tr, CGRectGetWidth(objectRect)/CGRectGetHeight(objectRect), 1);
-            } else {
-                tr = CGAffineTransformScale(tr, 1.f, CGRectGetHeight(objectRect)/CGRectGetWidth(objectRect));
-            }
-            tr = CGAffineTransformTranslate(tr, -gradientStartPoint.x, -gradientStartPoint.y);
-            selfTransform = CGAffineTransformConcat(tr, selfTransform);
-        }
-    }
     
-    gradientLayer.startPoint = CGPointMake(gradientStartPoint.x / CGRectGetWidth(objectRect), gradientStartPoint.y / CGRectGetHeight(objectRect));
-    gradientLayer.endPoint = CGPointMake((gradientStartPoint.x + radius) / CGRectGetWidth(objectRect), (gradientStartPoint.y + radius) / CGRectGetHeight(objectRect));
+    // convert to percent
+    CGPoint startPoint = gradientStartPoint;
+    gradientStartPoint = CGPointMake((startPoint.x) / CGRectGetWidth(objectRect), startPoint.y / CGRectGetHeight(objectRect));
+    gradientEndPoint = CGPointMake((startPoint.x + radius) / CGRectGetWidth(objectRect), (startPoint.y + radius) / CGRectGetHeight(objectRect));
+
+    // Suck. When using `SVGLayredImageView`, the layer rendering is submitted to CA render server, and your custom `renderInContex:` code will not work. So we just set both built-in value (CAGradientLayer property) && custom value (SVGGradientLayer property)
+    // FIX-ME: built-in value (not match the SVG spec, all the focal value will be ignored)
+    gradientLayer.startPoint = gradientStartPoint;
+    gradientLayer.endPoint = gradientEndPoint;
     gradientLayer.type = kCAGradientLayerRadial;
+    // custom value (match the SVG spec)
+    gradientLayer.gradientElement = self;
+    gradientLayer.objectRect = objectRect;
+    gradientLayer.viewportRect = viewportRect;
+    gradientLayer.absoluteTransform = absoluteTransform;
     
-    if (svgR.value <= 0) { // use raw value to avoid float->double losing precision
-        //  <r> A value of lower or equal to zero will cause the area to be painted as a single color using the color and opacity of the last gradient <stop>.
+    if (svgR.value <= 0) {
+        //  Spec: <r> A value of lower or equal to zero will cause the area to be painted as a single color using the color and opacity of the last gradient <stop>.
         SVGGradientStop *lastStop = self.stops.lastObject;
         gradientLayer.backgroundColor = CGColorWithSVGColor(lastStop.stopColor);
         gradientLayer.opacity = lastStop.stopOpacity;

@@ -254,10 +254,6 @@
 		3287B55B2174A6AB0068484C /* SVGRadialGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3287B5552174A6AB0068484C /* SVGRadialGradientElement.m */; };
 		3287B55C2174A6AB0068484C /* SVGRadialGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3287B5552174A6AB0068484C /* SVGRadialGradientElement.m */; };
 		3287B55D2174A6AB0068484C /* SVGRadialGradientElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 3287B5552174A6AB0068484C /* SVGRadialGradientElement.m */; };
-		3287B5612174B0450068484C /* CALayer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5602174B0450068484C /* CALayer+Private.h */; };
-		3287B5622174B0450068484C /* CALayer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5602174B0450068484C /* CALayer+Private.h */; };
-		3287B5632174B0450068484C /* CALayer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5602174B0450068484C /* CALayer+Private.h */; };
-		3287B5642174B0450068484C /* CALayer+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5602174B0450068484C /* CALayer+Private.h */; };
 		3287B5672174BE5E0068484C /* SVGLinearGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5652174BE5E0068484C /* SVGLinearGradientElement.h */; };
 		3287B5682174BE5E0068484C /* SVGLinearGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5652174BE5E0068484C /* SVGLinearGradientElement.h */; };
 		3287B5692174BE5E0068484C /* SVGLinearGradientElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 3287B5652174BE5E0068484C /* SVGLinearGradientElement.h */; };
@@ -1038,7 +1034,6 @@
 		321EAB5D2171FB8100640504 /* SVGKImageRep.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SVGKImageRep.h; sourceTree = "<group>"; };
 		3287B5542174A6AB0068484C /* SVGRadialGradientElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGRadialGradientElement.h; sourceTree = "<group>"; };
 		3287B5552174A6AB0068484C /* SVGRadialGradientElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGRadialGradientElement.m; sourceTree = "<group>"; };
-		3287B5602174B0450068484C /* CALayer+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CALayer+Private.h"; sourceTree = "<group>"; };
 		3287B5652174BE5E0068484C /* SVGLinearGradientElement.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SVGLinearGradientElement.h; sourceTree = "<group>"; };
 		3287B5662174BE5E0068484C /* SVGLinearGradientElement.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SVGLinearGradientElement.m; sourceTree = "<group>"; };
 		32A1F09C21746F4700ABFCE1 /* SVGKitFramework-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "SVGKitFramework-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1902,7 +1897,6 @@
 		66E863831688C2770059C9C4 /* QuartzCore additions */ = {
 			isa = PBXGroup;
 			children = (
-				3287B5602174B0450068484C /* CALayer+Private.h */,
 				6636CD88175F54680072AAEF /* CALayer+RecursiveClone.h */,
 				6636CD89175F54680072AAEF /* CALayer+RecursiveClone.m */,
 				9ED79A22179D87790048AA5B /* SVGGradientLayer.h */,
@@ -2010,7 +2004,6 @@
 				321EAA722171ED6900640504 /* CDATASection.h in Headers */,
 				321EAAC02171ED6F00640504 /* SVGGElement.h in Headers */,
 				321EAAD12171ED6F00640504 /* SVGUseElement.h in Headers */,
-				3287B5642174B0450068484C /* CALayer+Private.h in Headers */,
 				321EAAD32171ED6F00640504 /* SVGUseElement_Mutable.h in Headers */,
 				321EAA8E2171ED6900640504 /* DocumentCSS.h in Headers */,
 				3287B56A2174BE5E0068484C /* SVGLinearGradientElement.h in Headers */,
@@ -2226,7 +2219,6 @@
 				6694B5DD199C10400028CFF6 /* SVGKSourceNSData.h in Headers */,
 				BD1585731996B13F00461AA5 /* NSData+NSInputStream.h in Headers */,
 				4FD821F01AC69F6600E419D3 /* SVGSwitchElement.h in Headers */,
-				3287B5612174B0450068484C /* CALayer+Private.h in Headers */,
 				BD0AFF8C19AE442F0001578E /* SVGUnitTypes.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2366,7 +2358,6 @@
 				825CDB731BDA5069003C1C12 /* SVGKLayeredImageView.h in Headers */,
 				825CDB741BDA5069003C1C12 /* NSData+NSInputStream.h in Headers */,
 				825CDB751BDA5069003C1C12 /* SVGKPattern.h in Headers */,
-				3287B5622174B0450068484C /* CALayer+Private.h in Headers */,
 				825CDB761BDA506A003C1C12 /* SVGUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2506,7 +2497,6 @@
 				825CDBF31BDA50C4003C1C12 /* SVGKLayeredImageView.h in Headers */,
 				825CDBF41BDA50C4003C1C12 /* NSData+NSInputStream.h in Headers */,
 				825CDBF51BDA50C5003C1C12 /* SVGKPattern.h in Headers */,
-				3287B5632174B0450068484C /* CALayer+Private.h in Headers */,
 				825CDBF61BDA50C5003C1C12 /* SVGUtils.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

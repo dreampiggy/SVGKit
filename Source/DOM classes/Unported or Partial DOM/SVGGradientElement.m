@@ -17,6 +17,8 @@
 @synthesize transform;
 @synthesize locations = _locations;
 @synthesize colors = _colors;
+@synthesize gradientUnits = _gradientUnits;
+@synthesize spreadMethod = _spreadMethod;
 
 -(void)addStop:(SVGGradientStop *)gradientStop
 {
@@ -33,20 +35,14 @@
 - (NSArray *)colors {
     if(_colors == nil ) //these can't be determined until parsing is complete, need to update SVGGradientParser and do this on end element
     {
-        //        CGColorRef theColor = NULL;//, alphaColor = NULL;
         NSUInteger numStops = [self.stops count];
         if (numStops == 0) {
             return nil;
         }
         NSMutableArray *colorBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
-//        NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
         for (SVGGradientStop *theStop in self.stops)
         {
-//            [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
-            //            theColor = CGColorWithSVGColor([theStop stopColor]);
-            //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
             [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
-            //        CGColorRelease(alphaColor);
         }
         
         _colors = [[NSArray alloc] initWithArray:colorBuilder];
@@ -57,25 +53,47 @@
 - (NSArray *)locations {
     if(_locations == nil ) //these can't be determined until parsing is complete, need to update SVGGradientParser and do this on end element
     {
-        //        CGColorRef theColor = NULL;//, alphaColor = NULL;
         NSUInteger numStops = [self.stops count];
         if (numStops == 0) {
             return nil;
         }
-//        NSMutableArray *colorBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
         NSMutableArray *locationBuilder = [[NSMutableArray alloc] initWithCapacity:numStops];
         for (SVGGradientStop *theStop in self.stops)
         {
             [locationBuilder addObject:[NSNumber numberWithFloat:theStop.offset]];
-            //            theColor = CGColorWithSVGColor([theStop stopColor]);
-            //        alphaColor = CGColorCreateCopyWithAlpha(theColor, [theStop stopOpacity]);
-//            [colorBuilder addObject:(__bridge id)CGColorWithSVGColor([theStop stopColor])];
-            //        CGColorRelease(alphaColor);
         }
         
         _locations = [[NSArray alloc] initWithArray:locationBuilder];
     }
     return _locations;
+}
+
+- (SVG_UNIT_TYPE)gradientUnits {
+    NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
+    if( ![gradientUnits length]
+       || [gradientUnits isEqualToString:@"objectBoundingBox"]) {
+        return SVG_UNIT_TYPE_OBJECTBOUNDINGBOX;
+    } else if ([gradientUnits isEqualToString:@"userSpaceOnUse"]) {
+        return SVG_UNIT_TYPE_USERSPACEONUSE;
+    } else {
+        SVGKitLogWarn(@"Unsupported gradientUnits: %@", gradientUnits);
+        return SVG_UNIT_TYPE_UNKNOWN;
+    }
+}
+
+- (SVGSpreadMethod)spreadMethod {
+    NSString* spreadMethod = [self getAttributeInheritedIfNil:@"spreadMethod"];
+    if( ![spreadMethod length]
+       || [spreadMethod isEqualToString:@"pad"]) {
+        return SVGSpreadMethodPad;
+    } else if ([spreadMethod isEqualToString:@"reflect"]) {
+        return SVGSpreadMethodReflect;
+    } else if ([spreadMethod isEqualToString:@"repeat"]) {
+        return SVGSpreadMethodRepeat;
+    } else {
+        SVGKitLogWarn(@"Unsupported spreadMethod: %@", spreadMethod);
+        return SVGSpreadMethodUnkown;
+    }
 }
 
 -(void)postProcessAttributesAddingErrorsTo:(SVGKParseResult *)parseResult
@@ -145,13 +163,12 @@
 }
 
 - (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)transform {
-    [self doesNotRecognizeSelector:_cmd];
     return nil;
 }
 
 - (void)synthesizeProperties
 {
-    [self doesNotRecognizeSelector:_cmd];
+    
 }
 
 -(void)layoutLayer:(CALayer *)layer

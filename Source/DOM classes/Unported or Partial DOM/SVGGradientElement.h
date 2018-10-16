@@ -26,7 +26,6 @@
 #import "SVGRect.h"
 #import "SVGGradientStop.h"
 #import "SVGTransformable.h"
-#import "SVGGradientLayer.h"
 #import "SVGPreserveAspectRatio.h"
 #import "SVGUnitTypes.h"
 
@@ -34,7 +33,7 @@ typedef NS_ENUM(NSUInteger, SVGSpreadMethod) {
     SVGSpreadMethodUnkown = 0,
     SVGSpreadMethodPad = 1,
     SVGSpreadMethodReflect = 2,
-    SVGSpreadMethodRepear = 3
+    SVGSpreadMethodRepeat = 3
 };
 
 @interface SVGGradientElement : SVGElement <SVGTransformable> /* NB: does NOT implemente "SVGLayeredElement" because spec says that these specifically NEVER appear in the output */
@@ -44,8 +43,7 @@ typedef NS_ENUM(NSUInteger, SVGSpreadMethod) {
 @property (readonly, strong) NSArray *colors; /* FIXME: not in SVG Spec */
 
 @property (readonly, assign) SVG_UNIT_TYPE gradientUnits;
-@property (readonly, assign) NSArray *gradientTransform;
-//@property (readonly, assign) SVGSpreadMethod spreadMethod; /* FIXME: not supported */
+@property (readonly, assign) SVGSpreadMethod spreadMethod; /* FIXME: currently only support `pad`. other methods are not supported */
 
 
 -(void)addStop:(SVGGradientStop *)gradientStop; /* FIXME: not in SVG Spec */

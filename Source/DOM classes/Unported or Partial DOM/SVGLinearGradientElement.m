@@ -12,6 +12,10 @@
 @interface SVGLinearGradientElement ()
 
 @property (nonatomic) BOOL hasSynthesizedProperties;
+@property (nonatomic) SVGLength *x1;
+@property (nonatomic) SVGLength *y1;
+@property (nonatomic) SVGLength *x2;
+@property (nonatomic) SVGLength *y2;
 
 @end
 
@@ -19,23 +23,17 @@
 
 - (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)transformAbsolute {
     CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
-    BOOL inUserSpace = NO;
-    
-    CGRect rectForRelativeUnits;
-    NSString* gradientUnits = [self getAttributeInheritedIfNil:@"gradientUnits"];
-    if( ![gradientUnits length]
-       || [gradientUnits isEqualToString:@"objectBoundingBox"])
-        rectForRelativeUnits = objectRect;
-    else
-    {
-        inUserSpace = YES;
-        rectForRelativeUnits = CGRectFromSVGRect( viewportRect );
-    }
+    BOOL inUserSpace = self.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
+    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
     
     gradientLayer.frame = objectRect;
     
-    SVGLength* svgX1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"x1"]];
-    SVGLength* svgY1 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y1"]];
+    NSString *attrX1 = [self getAttributeInheritedIfNil:@"x1"];
+    NSString *attrY1 = [self getAttributeInheritedIfNil:@"y1"];
+    SVGLength* svgX1 = [SVGLength svgLengthFromNSString:attrX1.length > 0 ? attrX1 : @"0%"];
+    SVGLength* svgY1 = [SVGLength svgLengthFromNSString:attrY1.length > 0 ? attrY1 : @"0%"];
+    self.x1 = svgX1;
+    self.y1 = svgY1;
     CGFloat x1;
     CGFloat y1;
     
@@ -50,6 +48,7 @@
         x1 = [svgX1 pixelsValueWithDimension:CGRectGetWidth(rectForRelativeUnits)];
         y1 = [svgY1 pixelsValueWithDimension:CGRectGetHeight(rectForRelativeUnits)];
     }
+    
     CGPoint startPoint = CGPointMake(x1, y1);
     
     startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
@@ -65,9 +64,12 @@
         gradientStartPoint.y = (startPoint.y - CGRectGetMinY(objectRect))/CGRectGetHeight(objectRect);
     }
     
-    NSString* s = [self getAttributeInheritedIfNil:@"x2"];
-    SVGLength* svgX2 = [SVGLength svgLengthFromNSString:s];
-    SVGLength* svgY2 = [SVGLength svgLengthFromNSString:[self getAttributeInheritedIfNil:@"y2"]];
+    NSString* attrX2 = [self getAttributeInheritedIfNil:@"x2"];
+    NSString *attrY2 = [self getAttributeInheritedIfNil:@"y2"];
+    SVGLength* svgX2 = [SVGLength svgLengthFromNSString:attrX2.length > 0 ? attrX2 : @"100%"];
+    SVGLength* svgY2 = [SVGLength svgLengthFromNSString:attrY2.length > 0 ? attrY2 : @"0%"];
+    self.x2 = svgX2;
+    self.y2 = svgY2;
     CGFloat x2;
     CGFloat y2;
     
@@ -75,15 +77,11 @@
     {
         x2 = [svgX2 pixelsValueWithDimension:1.0];
         y2 = [svgY2 pixelsValueWithDimension:1.0];
-        if (![s length])
-            x2 = 1.0;
     }
     else
     {
         x2 = [svgX2 pixelsValueWithDimension:CGRectGetWidth(rectForRelativeUnits)];
         y2 = [svgY2 pixelsValueWithDimension:CGRectGetHeight(rectForRelativeUnits)];
-        if (![s length])
-            x2 = CGRectGetMaxX(rectForRelativeUnits);
     }
     
     
@@ -149,7 +147,7 @@
                 for (SVGGradientStop* stop in baseGradient.stops)
                     [self addStop:stop];
             }
-            NSArray *keys = [NSArray arrayWithObjects:@"x1", @"y1", @"x2", @"y2", @"gradientUnits", @"gradientTransform" @"spreadMethod", nil];
+            NSArray *keys = [NSArray arrayWithObjects:@"x1", @"y1", @"x2", @"y2", @"gradientUnits", @"gradientTransform", @"spreadMethod", nil];
             
             for (NSString* key in keys)
             {
