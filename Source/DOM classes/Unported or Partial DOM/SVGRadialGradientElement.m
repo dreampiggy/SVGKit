@@ -10,6 +10,11 @@
 #import "SVGElement_ForParser.h"
 #import "SVGUtils.h"
 #import "SVGGradientLayer.h"
+#if SVGKIT_UIKIT
+#import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
 
 @interface SVGRadialGradientElement ()
 
@@ -28,7 +33,7 @@
 - (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)absoluteTransform {
     SVGGradientLayer *gradientLayer = [[SVGGradientLayer alloc] init];
     BOOL inUserSpace = self.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
-    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
+//    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
     
     gradientLayer.frame = objectRect;
     

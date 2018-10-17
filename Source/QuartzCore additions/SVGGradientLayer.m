@@ -23,7 +23,7 @@
     SVGRadialGradientElement *gradientElement = (SVGRadialGradientElement *)self.gradientElement;
     BOOL inUserSpace = gradientElement.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
     CGRect objectRect = self.objectRect;
-    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( self.viewportRect ) : objectRect;
+//    CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( self.viewportRect ) : objectRect;
     
     CGFloat radius;
     CGFloat focalRadius;
@@ -43,7 +43,7 @@
         return;
     }
     if (colors.count != locations.count) {
-        SVGKitLogWarn(@"[%@] colors count : %lu != locations count : %lu", [self class], colors.count, locations.count);
+        SVGKitLogWarn(@"[%@] colors count : %lu != locations count : %lu", [self class], (unsigned long)colors.count, (unsigned long)locations.count);
         return;
     }
     CGFloat locations_array[locations.count];

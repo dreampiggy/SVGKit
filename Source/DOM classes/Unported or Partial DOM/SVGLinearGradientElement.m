@@ -8,6 +8,11 @@
 
 #import "SVGLinearGradientElement.h"
 #import "SVGElement_ForParser.h"
+#if SVGKIT_UIKIT
+#import <UIKit/UIKit.h>
+#else
+#import <AppKit/AppKit.h>
+#endif
 
 @interface SVGLinearGradientElement ()
 
