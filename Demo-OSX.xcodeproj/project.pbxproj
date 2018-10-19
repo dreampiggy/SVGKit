@@ -11,8 +11,8 @@
 		3204ECE52174FA6600AE1141 /* Firefox_Logo,_2017.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3204ECDC2174FA6500AE1141 /* Firefox_Logo,_2017.svg */; };
 		3204ECE62174FA6600AE1141 /* Mozilla_Firefox_logo_2013.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3204ECE42174FA6600AE1141 /* Mozilla_Firefox_logo_2013.svg */; };
 		3204ED0C217502A500AE1141 /* TestLinearGradient.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3204ED04217502A500AE1141 /* TestLinearGradient.svg */; };
-		3204ED282175141500AE1141 /* TestGradientFocal.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3204ED202175141500AE1141 /* TestGradientFocal.svg */; };
-		3287B5792174C4910068484C /* TestRradialGradient.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3287B5782174C4910068484C /* TestRradialGradient.svg */; };
+		3204ED282175141500AE1141 /* TestRadialGradient3.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3204ED202175141500AE1141 /* TestRadialGradient3.svg */; };
+		3287B5792174C4910068484C /* TestRadialGradient.svg in Resources */ = {isa = PBXBuildFile; fileRef = 3287B5782174C4910068484C /* TestRadialGradient.svg */; };
 		32B5A1E4217333C200CAA60C /* CocoaLumberjack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */; };
 		32B5A1E6217333C800CAA60C /* CocoaLumberjack.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		32C4FD3A2173976C00FBEDBF /* radialGradientTest.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */; };
@@ -82,6 +82,7 @@
 		32C4FD7A2173976C00FBEDBF /* rotated-and-skewed-text.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32C4FD372173976C00FBEDBF /* rotated-and-skewed-text.svg */; };
 		32C4FD7B2173976C00FBEDBF /* voies.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32C4FD382173976C00FBEDBF /* voies.svg */; };
 		32C4FD7C2173976C00FBEDBF /* heart.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32C4FD392173976C00FBEDBF /* heart.svg */; };
+		32D12490217A12A1002538B5 /* TestLinearGradient3.svg in Resources */ = {isa = PBXBuildFile; fileRef = 32D12488217A12A1002538B5 /* TestLinearGradient3.svg */; };
 		32EE37912173433B00A23278 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EE37902173431300A23278 /* SVGKit.framework */; };
 		32EE37922173434B00A23278 /* SVGKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32EE37902173431300A23278 /* SVGKit.framework */; };
 		32EE37932173434B00A23278 /* SVGKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 32EE37902173431300A23278 /* SVGKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -293,8 +294,8 @@
 		3204ECDC2174FA6500AE1141 /* Firefox_Logo,_2017.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Firefox_Logo,_2017.svg"; sourceTree = "<group>"; };
 		3204ECE42174FA6600AE1141 /* Mozilla_Firefox_logo_2013.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Mozilla_Firefox_logo_2013.svg; sourceTree = "<group>"; };
 		3204ED04217502A500AE1141 /* TestLinearGradient.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLinearGradient.svg; sourceTree = "<group>"; };
-		3204ED202175141500AE1141 /* TestGradientFocal.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestGradientFocal.svg; sourceTree = "<group>"; };
-		3287B5782174C4910068484C /* TestRradialGradient.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestRradialGradient.svg; sourceTree = "<group>"; };
+		3204ED202175141500AE1141 /* TestRadialGradient3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestRadialGradient3.svg; sourceTree = "<group>"; };
+		3287B5782174C4910068484C /* TestRadialGradient.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestRadialGradient.svg; sourceTree = "<group>"; };
 		32B5A1DD217333C200CAA60C /* CocoaLumberjack.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CocoaLumberjack.framework; path = "3rd-party-frameworks/CocoaLumberjack-2.2.0/Mac/CocoaLumberjack.framework"; sourceTree = "<group>"; };
 		32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = radialGradientTest.svg; sourceTree = "<group>"; };
 		32C4FCF62173976C00FBEDBF /* g-element-applies-rotation.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "g-element-applies-rotation.svg"; sourceTree = "<group>"; };
@@ -363,6 +364,7 @@
 		32C4FD372173976C00FBEDBF /* rotated-and-skewed-text.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "rotated-and-skewed-text.svg"; sourceTree = "<group>"; };
 		32C4FD382173976C00FBEDBF /* voies.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = voies.svg; sourceTree = "<group>"; };
 		32C4FD392173976C00FBEDBF /* heart.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = heart.svg; sourceTree = "<group>"; };
+		32D12488217A12A1002538B5 /* TestLinearGradient3.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLinearGradient3.svg; sourceTree = "<group>"; };
 		32EE37792173431300A23278 /* SVGKit-iOS.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; path = "SVGKit-iOS.xcodeproj"; sourceTree = "<group>"; };
 		32F0B49E2176182900E462F6 /* TestLinearGradient2.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TestLinearGradient2.svg; sourceTree = "<group>"; };
 		55018B4B1B24E95700936DF7 /* Licenses.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Licenses.plist; path = "Demo-Samples/Licenses.plist"; sourceTree = SOURCE_ROOT; };
@@ -402,13 +404,14 @@
 		32C4FCF42173976B00FBEDBF /* SVG */ = {
 			isa = PBXGroup;
 			children = (
+				32D12488217A12A1002538B5 /* TestLinearGradient3.svg */,
 				32F0B49E2176182900E462F6 /* TestLinearGradient2.svg */,
-				3204ED202175141500AE1141 /* TestGradientFocal.svg */,
 				3204ED04217502A500AE1141 /* TestLinearGradient.svg */,
 				3204ECDC2174FA6500AE1141 /* Firefox_Logo,_2017.svg */,
 				3204ECE42174FA6600AE1141 /* Mozilla_Firefox_logo_2013.svg */,
+				3204ED202175141500AE1141 /* TestRadialGradient3.svg */,
 				3204ECC02174F65E00AE1141 /* TestRadialGradient2.svg */,
-				3287B5782174C4910068484C /* TestRradialGradient.svg */,
+				3287B5782174C4910068484C /* TestRadialGradient.svg */,
 				32C4FCF52173976C00FBEDBF /* radialGradientTest.svg */,
 				32C4FCF62173976C00FBEDBF /* g-element-applies-rotation.svg */,
 				32C4FCF72173976C00FBEDBF /* Blank_Map-Africa.svg */,
@@ -906,7 +909,7 @@
 				32C4FD6F2173976C00FBEDBF /* CurvedDiamond.svg in Resources */,
 				32C4FD742173976C00FBEDBF /* Sample Licenses from svg-android project.txt in Resources */,
 				32F0B4A62176182900E462F6 /* TestLinearGradient2.svg in Resources */,
-				3287B5792174C4910068484C /* TestRradialGradient.svg in Resources */,
+				3287B5792174C4910068484C /* TestRadialGradient.svg in Resources */,
 				32C4FD3C2173976C00FBEDBF /* Blank_Map-Africa.svg in Resources */,
 				32C4FD3E2173976C00FBEDBF /* imageWithASinglePointPath.svg in Resources */,
 				32C4FD722173976C00FBEDBF /* shapes.svg in Resources */,
@@ -915,7 +918,8 @@
 				32C4FD6E2173976C00FBEDBF /* Cycling_Lambie.svg in Resources */,
 				32C4FD762173976C00FBEDBF /* svg-with-explicit-width.svg in Resources */,
 				32C4FD502173976C00FBEDBF /* test-wave-1.svg in Resources */,
-				3204ED282175141500AE1141 /* TestGradientFocal.svg in Resources */,
+				32D12490217A12A1002538B5 /* TestLinearGradient3.svg in Resources */,
+				3204ED282175141500AE1141 /* TestRadialGradient3.svg in Resources */,
 				32C4FD3F2173976C00FBEDBF /* Map.svg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
