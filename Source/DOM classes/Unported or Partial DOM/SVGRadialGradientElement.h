@@ -8,7 +8,7 @@
 
 #import "SVGGradientElement.h"
 
-@interface SVGRadialGradientElement : SVGGradientElement
+@interface SVGRadialGradientElement : SVGGradientElement <SVGTransformable>
 
 @property (nonatomic, readonly) SVGLength *cx;
 @property (nonatomic, readonly) SVGLength *cy;

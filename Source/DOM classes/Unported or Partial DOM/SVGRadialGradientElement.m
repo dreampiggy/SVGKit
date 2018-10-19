@@ -164,7 +164,7 @@
                 for (SVGGradientStop* stop in baseGradient.stops)
                     [self addStop:stop];
             }
-            NSArray *keys = [NSArray arrayWithObjects:@"cx", @"cy", @"r", @"fx", @"fy", @"fr", @"gradientUnits", @"gradientTransform", nil];
+            NSArray *keys = [NSArray arrayWithObjects:@"cx", @"cy", @"r", @"fx", @"fy", @"fr", @"gradientUnits", @"gradientTransform", @"spreadMethod", nil];
             
             for (NSString* key in keys)
             {

@@ -8,6 +8,7 @@
 
 #import "SVGLinearGradientElement.h"
 #import "SVGElement_ForParser.h"
+#import "SVGGradientLayer.h"
 #if SVGKIT_UIKIT
 #import <UIKit/UIKit.h>
 #else
@@ -26,8 +27,8 @@
 
 @implementation SVGLinearGradientElement
 
-- (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)transformAbsolute {
-    CAGradientLayer *gradientLayer = [[CAGradientLayer alloc] init];
+- (CAGradientLayer *)newGradientLayerForObjectRect:(CGRect)objectRect viewportRect:(SVGRect)viewportRect transform:(CGAffineTransform)absoluteTransform {
+    SVGGradientLayer *gradientLayer = [[SVGGradientLayer alloc] init];
     BOOL inUserSpace = self.gradientUnits == SVG_UNIT_TYPE_USERSPACEONUSE;
     CGRect rectForRelativeUnits = inUserSpace ? CGRectFromSVGRect( viewportRect ) : objectRect;
     
@@ -59,7 +60,7 @@
     startPoint = CGPointApplyAffineTransform(startPoint, self.transform);
     if (inUserSpace)
     {
-        startPoint = CGPointApplyAffineTransform(startPoint, transformAbsolute);
+        startPoint = CGPointApplyAffineTransform(startPoint, absoluteTransform);
     }
     CGPoint gradientStartPoint = startPoint;
     
@@ -70,7 +71,7 @@
     }
     
     NSString* attrX2 = [self getAttributeInheritedIfNil:@"x2"];
-    NSString *attrY2 = [self getAttributeInheritedIfNil:@"y2"];
+    NSString* attrY2 = [self getAttributeInheritedIfNil:@"y2"];
     SVGLength* svgX2 = [SVGLength svgLengthFromNSString:attrX2.length > 0 ? attrX2 : @"100%"];
     SVGLength* svgY2 = [SVGLength svgLengthFromNSString:attrY2.length > 0 ? attrY2 : @"0%"];
     self.x2 = svgX2;
@@ -94,7 +95,7 @@
     endPoint = CGPointApplyAffineTransform(endPoint, self.transform);
     if (inUserSpace)
     {
-        endPoint = CGPointApplyAffineTransform(endPoint, transformAbsolute);
+        endPoint = CGPointApplyAffineTransform(endPoint, absoluteTransform);
     }
     CGPoint gradientEndPoint = endPoint;
     
@@ -104,8 +105,7 @@
         gradientEndPoint.y = ((endPoint.y - CGRectGetMaxY(objectRect))/CGRectGetHeight(objectRect))+1;
     }
     
-    //    return gradientLayer;
-    CGFloat rotation = atan2(transformAbsolute.b, transformAbsolute.d);
+    CGFloat rotation = atan2(absoluteTransform.b, absoluteTransform.d);
     if (fabs(rotation)>.01) {
         CGAffineTransform tr = CGAffineTransformMakeTranslation(.5, .5);
         tr = CGAffineTransformRotate(tr, rotation);
@@ -116,6 +116,11 @@
     gradientLayer.startPoint = gradientStartPoint;
     gradientLayer.endPoint = gradientEndPoint;
     gradientLayer.type = kCAGradientLayerAxial;
+    // custom value (match the SVG spec)
+    gradientLayer.gradientElement = self;
+    gradientLayer.objectRect = objectRect;
+    gradientLayer.viewportRect = viewportRect;
+    gradientLayer.absoluteTransform = absoluteTransform;
     
     [gradientLayer setColors:self.colors];
     [gradientLayer setLocations:self.locations];
