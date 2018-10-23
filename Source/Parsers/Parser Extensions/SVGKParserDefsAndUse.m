@@ -1,6 +1,7 @@
 #import "SVGKParserDefsAndUse.h"
 
-#import "Node.h"
+#import "DOMNode.h"
+#import "DOMAttr.h"
 #import "SVGKSource.h"
 #import "SVGKParseResult.h"
 
@@ -33,8 +34,8 @@
 	instance.correspondingElement = original;
 	instance.correspondingUseElement = outermostUseElement;
 	
-	for( Node* subNode in original.childNodes )
-	{
+    for (int i = 0; i < original.childNodes.length; i++) {
+        DOMNode* subNode = [original.childNodes item:i];
 		if( [subNode isKindOfClass:[SVGElement class]])
 		{
 			SVGElement* subElement = (SVGElement*) subNode;
@@ -48,7 +49,7 @@
 	return instance;
 }
 
-- (Node*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node*) parentNode
+- (DOMNode*) handleStartElement:(NSString *)name document:(SVGKSource*) SVGKSource namePrefix:(NSString*)prefix namespaceURI:(NSString*) XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(DOMNode*) parentNode
 {
 	if( [[self supportedNamespaces] containsObject:XMLNSURI] )
 	{	
@@ -69,20 +70,20 @@
 			[useElement postProcessAttributesAddingErrorsTo:parseResult]; // handles "transform" and "style"
 			
 			if( [attributes valueForKey:@"x"] != nil )
-				useElement.x = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"x"]) value]];
+				useElement.x = [SVGLength svgLengthFromNSString:[((DOMAttr*)[attributes valueForKey:@"x"]) value]];
 			if( [attributes valueForKey:@"y"] != nil )
-				useElement.y = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"y"]) value]];
+				useElement.y = [SVGLength svgLengthFromNSString:[((DOMAttr*)[attributes valueForKey:@"y"]) value]];
 			if( [attributes valueForKey:@"width"] != nil )
-				useElement.width = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"width"]) value]];
+				useElement.width = [SVGLength svgLengthFromNSString:[((DOMAttr*)[attributes valueForKey:@"width"]) value]];
 			if( [attributes valueForKey:@"height"] != nil )
-				useElement.height = [SVGLength svgLengthFromNSString:[((Attr*)[attributes valueForKey:@"height"]) value]];
+				useElement.height = [SVGLength svgLengthFromNSString:[((DOMAttr*)[attributes valueForKey:@"height"]) value]];
 			
 			NSString* hrefAttribute = [useElement getAttributeNS:@"http://www.w3.org/1999/xlink" localName:@"href"];
 			
 			NSAssert( [hrefAttribute length] > 0, @"Found an SVG <use> tag that has no 'xlink:href' attribute. File is invalid / don't know how to parse this" );
 			if( [hrefAttribute length] > 0 )
 			{
-				NSString* linkHref = [((Attr*)[attributes valueForKey:@"xlink:href"]) value];
+				NSString* linkHref = [((DOMAttr*)[attributes valueForKey:@"xlink:href"]) value];
 				
 				NSAssert( [linkHref hasPrefix:@"#"], @"Not supported: <use> tags that declare an href to something that DOESN'T begin with #. Href supplied = %@", linkHref );
 				
@@ -104,7 +105,7 @@
 	return nil;
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(DOMNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }

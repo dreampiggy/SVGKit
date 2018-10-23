@@ -2,7 +2,7 @@
 #import "SVGSwitchElement.h"
 #import "CALayerWithChildHitTest.h"
 #import "SVGHelperUtilities.h"
-#import "NodeList+Mutable.h"
+#import "DOMNodeList+Mutable.h"
 
 @implementation SVGSwitchElement
 
@@ -18,23 +18,23 @@
     return _layer;
 }
 
-- (NodeList *)visibleChildNodes
+- (DOMNodeList *)visibleChildNodes
 {
     if (_visibleChildNodes)
         return _visibleChildNodes;
     
-    _visibleChildNodes = [[NodeList alloc] init];
+    DOMNode *tempNode = [DOMNode new];
     
     NSString* localLanguage = [[NSLocale preferredLanguages] firstObject];
     
-    for ( SVGElement<ConverterSVGToCALayer> *child in self.childNodes )
-    {
+    for (int i = 0; i < self.childNodes.length; i++) {
+        SVGElement<ConverterSVGToCALayer> *child = (SVGElement<ConverterSVGToCALayer> *)[self.childNodes item:i];
         if ([child conformsToProtocol:@protocol(ConverterSVGToCALayer)])
         {
             // spec says if there is no attribute at all then pick it
             if (![child hasAttribute:@"systemLanguage"])
             {
-                [_visibleChildNodes.internalArray addObject:child];
+                [tempNode appendChild:child];
                 break;
             }
             
@@ -45,12 +45,14 @@
 
             if ([languageCodes containsObject:localLanguage])
             {
-                [_visibleChildNodes.internalArray addObject:child];
+                [tempNode appendChild:child];
                 break;
             }
         
         }
     }
+    _visibleChildNodes = tempNode.childNodes;
+    
     return _visibleChildNodes;
 }
 

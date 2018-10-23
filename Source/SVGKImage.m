@@ -8,7 +8,7 @@
 #import "SVGUseElement.h"
 #import "SVGClipPathElement.h"
 #import "SVGSwitchElement.h"
-#import "NodeList+Mutable.h"
+#import "DOMNodeList+Mutable.h"
 
 #import "SVGSVGElement_Mutable.h" // so that changing .size can change the SVG's .viewport
 
@@ -59,7 +59,8 @@
 #pragma mark - main class
 @implementation SVGKImage
 
-@synthesize DOMDocument, DOMTree, CALayerTree;
+@synthesize DOMDocument = _DOMDocument;
+@synthesize DOMTree = DOMTree, CALayerTree = CALayerTree;
 
 @synthesize scale = _scale;
 @synthesize source;
@@ -292,7 +293,7 @@ static NSMutableDictionary* globalSVGKImageCache;
 		if( parseErrorsAndWarnings.parsedDocument != nil )
 		{
 			self.DOMDocument = parseErrorsAndWarnings.parsedDocument;
-			self.DOMTree = DOMDocument.rootElement;
+			self.DOMTree = _DOMDocument.rootElement;
 			self.source = parseSource;
 		}
 		else
@@ -636,8 +637,8 @@ static NSMutableDictionary* globalSVGKImageCache;
 	
 	//DEBUG: SVGKitLogVerbose(@"[%@] DEBUG: converted SVG element (class:%@) to CALayer (class:%@ frame:%@ pointer:%@) for id = %@", [self class], NSStringFromClass([element class]), NSStringFromClass([layer class]), NSStringFromCGRect( layer.frame ), layer, element.identifier);
 	
-	NodeList* childNodes = element.childNodes;
-	Node* saveParentNode = nil;
+	DOMNodeList* childNodes = element.childNodes;
+	DOMNode* saveParentNode = nil;
 	/**
 	 Special handling for <use> tags - they have to masquerade invisibly as the node they are referring to
 	 */
@@ -649,9 +650,9 @@ static NSMutableDictionary* globalSVGKImageCache;
 		saveParentNode = element.parentNode;
 		element.parentNode = useElement;
 
-		NodeList* nodeList = [[NodeList alloc] init];
-		[nodeList.internalArray addObject:element];
-		childNodes = nodeList;
+        DOMNode *tempNode = [DOMNode new];
+        [tempNode appendChild:element];
+        childNodes = tempNode.childNodes;
     }
     else
     if ( [element isKindOfClass:[SVGSwitchElement class]] )

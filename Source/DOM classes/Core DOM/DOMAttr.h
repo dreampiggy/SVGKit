@@ -1,0 +1,43 @@
+/*
+ SVG-DOM, via Core DOM:
+ 
+ http://www.w3.org/TR/DOM-Level-2-Core/core.html#ID-637646024
+ 
+ interface Attr : Node {
+ readonly attribute DOMString        name;
+ readonly attribute boolean          specified;
+ attribute DOMString        value;
+ // raises(DOMException) on setting
+ 
+ // Introduced in DOM Level 2:
+ readonly attribute Element          ownerElement;
+ };
+*/
+#if __has_include(<WebKit/DOMAttr.h>)
+#import <WebKit/DOMAttr.h>
+#else
+
+#import <Foundation/Foundation.h>
+
+/** objc won't allow this: @class Node;*/
+#import "DOMNode.h"
+@class DOMElement;
+
+@interface DOMAttr : DOMNode
+
+/*! NB: The official DOM spec FAILS TO SPECIFY what the value of "name" is */
+@property(nonatomic,strong,readonly) NSString* name;
+@property(nonatomic,readonly) BOOL specified;
+@property(nonatomic,strong,readonly) NSString* value;
+
+// Introduced in DOM Level 2:
+@property(nonatomic,strong,readonly) DOMElement* ownerElement;
+
+#pragma mark - ObjC methods
+
+- (id)initWithName:(NSString*) n value:(NSString*) v;
+- (id)initWithNamespace:(NSString*) ns qualifiedName:(NSString*) qn value:(NSString*) v;
+
+@end
+
+#endif

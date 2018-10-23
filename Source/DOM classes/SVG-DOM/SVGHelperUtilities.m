@@ -588,7 +588,7 @@
 	return fillColor;
 }
 
-+(void) parsePreserveAspectRatioFor:(Element<SVGFitToViewBox>*) element
++(void) parsePreserveAspectRatioFor:(DOMElement<SVGFitToViewBox>*) element
 {
     element.preserveAspectRatio = [SVGAnimatedPreserveAspectRatio new]; // automatically sets defaults
     

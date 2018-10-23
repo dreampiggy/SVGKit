@@ -36,9 +36,9 @@ static NSSet *_svgGradientParserSupportedTags = nil;
     return _svgGradientParserSupportedTags;
 }
 
--(Node *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(Node *)parentNode
+-(DOMNode *)handleStartElement:(NSString *)name document:(SVGKSource *)document namePrefix:(NSString *)prefix namespaceURI:(NSString *)XMLNSURI attributes:(NSMutableDictionary *)attributes parseResult:(SVGKParseResult *)parseResult parentNode:(DOMNode *)parentNode
 {    
-    Node *returnObject = nil;
+    DOMNode *returnObject = nil;
     
     if( [name isEqualToString:@"linearGradient"] )
     {
@@ -85,7 +85,7 @@ static NSSet *_svgGradientParserSupportedTags = nil;
     return returnObject;
 }
 
--(void)handleEndElement:(Node *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
+-(void)handleEndElement:(DOMNode *)newNode document:(SVGKSource *)document parseResult:(SVGKParseResult *)parseResult
 {
 	
 }

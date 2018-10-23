@@ -58,4 +58,10 @@
 #endif
 #endif
 
+#if __has_include(<WebKit/DOM.h>)
+#define SVGKIT_DOM 0
+#else
+#define SVGKIT_DOM 1
+#endif
+
 #endif /* SVGKDefine_h */

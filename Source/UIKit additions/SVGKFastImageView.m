@@ -34,8 +34,8 @@
         return FALSE;
     else
     {
-        for( Node* n in element.childNodes )
-        {
+        for (int i = 0; i < element.childNodes.length; i++) {
+            DOMNode* n = [element.childNodes item:i];
             if( [n isKindOfClass:[SVGElement class]])
             {
                 if( [self svgElementAndDescendentsHaveNoGradients:(SVGElement*)n])
